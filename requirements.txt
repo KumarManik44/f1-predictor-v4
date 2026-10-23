@@ -1,0 +1,9 @@
+# Resolved on Python 3.14.6
+pandas==3.1.0
+numpy==2.5.4
+pyarrow==26.0.0
+requests==2.34.2
+scikit-learn==1.9.1
+catboost==1.2.10
+xgboost==3.4.1
+matplotlib==3.11.2

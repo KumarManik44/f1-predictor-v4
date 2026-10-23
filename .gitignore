@@ -1,0 +1,16 @@
+# Python
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.runtime/
+catboost_info/
+
+# Web build output
+node_modules/
+web/dist/
+
+# OS
+.DS_Store
+
+# V3 notebook lives in the V3 repo
+f1_predictor_v3_master.ipynb

@@ -1,0 +1,132 @@
+{
+  "podium": {
+    "model": "E1_logistic",
+    "slot_rates": {
+      "1": 0.7519184889145532,
+      "10": 0.03795169644772735,
+      "11+": 0.013832261108875627,
+      "2": 0.6762882368137128,
+      "3": 0.440994119166654,
+      "4": 0.38217058975488927,
+      "5": 0.214103362864133,
+      "6": 0.1048596653851414,
+      "7": 0.08805294269606577,
+      "8": 0.029477120176540902,
+      "9": 0.02922941328430106,
+      "pit": 0.059132007233273054
+    },
+    "base_rate": 0.14783001808318263,
+    "logit_clip": 0.0001,
+    "scaler_mean": -2.8883593557960503,
+    "scaler_scale": 1.7968222740405815,
+    "coef": 1.9555499089275026,
+    "intercept": -2.997618388683455,
+    "race_total": 3,
+    "p_cap": 0.999
+  },
+  "winner": {
+    "model": "W1_logistic",
+    "slot_rates": {
+      "1": 0.5335526615709575,
+      "10": 0.01265056548257578,
+      "11+": 0.0031213286210401625,
+      "2": 0.19741820778944488,
+      "3": 0.0881745103104533,
+      "4": 0.0377543422432264,
+      "5": 0.01254425820961296,
+      "6": 0.020947619554150775,
+      "7": 0.01254425820961296,
+      "8": 0.004175989211389341,
+      "9": 0.01254425820961296,
+      "pit": 0.01971066907775769
+    },
+    "base_rate": 0.049276672694394216,
+    "logit_clip": 0.0001,
+    "scaler_mean": -4.569542860686933,
+    "scaler_scale": 1.647136938932806,
+    "coef": 1.763106581769143,
+    "intercept": -4.729223563698757,
+    "race_total": 1,
+    "p_cap": 0.999
+  },
+  "card": {
+    "project": "F1 Predictor V4",
+    "trained_at": "2026-10-23T15:43:50.973405+00:00",
+    "trained_through": "2026 R17 Singapore Grand Prix",
+    "snapshot_hash": "68ee1ec64f65",
+    "training_races": 109,
+    "training_rows": 2212,
+    "python": "3.14.6",
+    "library_versions": {
+      "pandas": "3.1.0",
+      "numpy": "2.5.4",
+      "pyarrow": "26.0.0",
+      "requests": "2.34.2",
+      "scikit-learn": "1.9.1",
+      "catboost": "1.2.10",
+      "xgboost": "3.4.1",
+      "matplotlib": "3.11.2"
+    },
+    "inputs": "Starting grid only (slots 1-10, 11+ pooled, pit lane). Qualifying detail, driver form, team strength and circuit history did not improve dev Brier (Phase 3).",
+    "podium": {
+      "model": "E1_logistic+sum3",
+      "baseline": "E1_grid_slot",
+      "dev": {
+        "races": 55,
+        "brier": 0.0642,
+        "brier_ci": [
+          0.0559,
+          0.0726
+        ],
+        "baseline_brier": 0.0657,
+        "log_loss": 0.2142,
+        "diff_vs_baseline": -0.0016,
+        "diff_ci": [
+          -0.0025,
+          -0.0006
+        ],
+        "prob_sum_mean": 3.0
+      },
+      "holdout": {
+        "races": 10,
+        "brier": 0.0622,
+        "brier_ci": [
+          0.0436,
+          0.0832
+        ],
+        "baseline_brier": 0.0626,
+        "log_loss": 0.2088,
+        "diff_vs_baseline": -0.0004,
+        "diff_ci": [
+          -0.0018,
+          0.0011
+        ],
+        "prob_sum_mean": 3.0
+      },
+      "holdout_passed": false,
+      "note": "Did not beat the grid-slot baseline on the holdout: a recalibrated grid lookup."
+    },
+    "winner": {
+      "model": "W1_logistic+sum1",
+      "baseline": "W1_grid_slot",
+      "dev": {
+        "races": 55,
+        "brier": 0.03,
+        "brier_ci": [
+          0.0247,
+          0.0355
+        ],
+        "baseline_brier": 0.0305,
+        "log_loss": 0.105,
+        "diff_vs_baseline": -0.0004,
+        "diff_ci": [
+          -0.0011,
+          0.0003
+        ],
+        "prob_sum_mean": 1.0
+      },
+      "holdout": null,
+      "note": "No clean holdout (it was opened once, for the podium model)."
+    }
+  }
+}

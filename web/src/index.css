@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Titillium Web", system-ui, sans-serif;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-base: #f5f4f0;
+  --color-panel: #ffffff;
+  --color-ink: #121316;
+  --color-muted: #55565b;
+  --color-faint: #8b8c90;
+  --color-line: rgb(18 19 22 / 0.09);
+  --color-line-strong: rgb(18 19 22 / 0.18);
+  --color-accent: #e3261b;
+  --color-good: #0f8a5f;
+  --color-warn: #a86400;
+}
+
+/* Light theme only, no dark variant */
+html {
+  color-scheme: light;
+  background: var(--color-base);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgb(227 38 27 / 0.07), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgb(47 95 179 / 0.06), transparent 60%),
+    var(--color-base);
+}
+
+/* Faint track-map grid behind everything */
+.bg-track::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgb(18 19 22 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(18 19 22 / 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at top, black 30%, transparent 75%);
+}
+
+.panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 1.25rem;
+  box-shadow: 0 1px 2px rgb(18 19 22 / 0.04), 0 12px 32px -18px rgb(18 19 22 / 0.18);
+}
+
+/* Red / white kerb stripe */
+.kerb {
+  background: repeating-linear-gradient(90deg, var(--color-accent) 0 14px, #ffffff 14px 28px);
+}
+
+/* Painted grid-box marking above each slot */
+.grid-box {
+  position: relative;
+}
+.grid-box::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 35%;
+  top: -6px;
+  height: 6px;
+  border-top: 2px solid rgb(18 19 22 / 0.2);
+  border-left: 2px solid rgb(18 19 22 / 0.2);
+  border-right: 2px solid rgb(18 19 22 / 0.2);
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
