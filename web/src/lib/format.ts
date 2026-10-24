@@ -15,7 +15,4 @@ export function countdown(targetIso: string, now: number) {
 export const raceDate = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' })
 
-export const raceTime = (iso: string) =>
-  new Date(iso).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' })
-
 export const shortRaceName = (name: string) => name.replace('Grand Prix', 'GP')

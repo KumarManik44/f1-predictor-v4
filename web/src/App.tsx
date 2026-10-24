@@ -93,8 +93,6 @@ function Predictor({ model, season }: { model: ModelFile; season: SeasonFile }) 
               <StartingGrid
                 grid={grid}
                 drivers={drivers}
-                round={round}
-                qualiUtc={race.quali_utc}
                 qualiDone={new Date(race.quali_utc).getTime() + 90 * 60_000 < now}
                 loadStatus={loadStatus[round] ?? 'idle'}
                 onReorder={onReorder}

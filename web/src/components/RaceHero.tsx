@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react'
 import type { Race } from '../lib/types'
-import { countdown, raceDate, raceTime } from '../lib/format'
+import { countdown } from '../lib/format'
 
 function Unit({ value, label }: { value: number; label: string }) {
   return (
@@ -34,12 +34,6 @@ export default function RaceHero({ race, season, now }: { race: Race; season: nu
             {race.name}
           </motion.h1>
         </AnimatePresence>
-        <p className="mt-4 text-muted">
-          {race.circuit_name} · {race.locality}, {race.country}
-        </p>
-        <p className="mt-1 font-mono text-xs text-faint">
-          Qualifying {raceDate(race.quali_utc)} {raceTime(race.quali_utc)} · Race {raceDate(race.race_utc)} {raceTime(race.race_utc)}
-        </p>
       </div>
 
       <div aria-live="off">

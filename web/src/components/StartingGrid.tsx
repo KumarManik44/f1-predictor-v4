@@ -11,15 +11,12 @@ import { SortableContext, arrayMove, rectSortingStrategy, sortableKeyboardCoordi
 import { CSS } from '@dnd-kit/utilities'
 import type { Driver, GridState } from '../lib/types'
 import { teamColor, teamName } from '../lib/teams'
-import { raceDate, raceTime } from '../lib/format'
 
 export type LoadStatus = 'idle' | 'loading' | 'unpublished' | 'loaded' | 'error'
 
 interface Props {
   grid: GridState
   drivers: Map<string, Driver>
-  round: number
-  qualiUtc: string
   qualiDone: boolean
   loadStatus: LoadStatus
   onReorder: (order: string[]) => void
@@ -115,7 +112,7 @@ function LoadButton({ status, qualiDone, onClick }: { status: LoadStatus; qualiD
 }
 
 export default function StartingGrid(props: Props) {
-  const { grid, drivers, round, qualiUtc, qualiDone, loadStatus, onReorder, onTogglePit, onReset, onLoadOfficial } = props
+  const { grid, drivers, qualiDone, loadStatus, onReorder, onTogglePit, onReset, onLoadOfficial } = props
   const pit = new Set(grid.pitLane)
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -148,12 +145,6 @@ export default function StartingGrid(props: Props) {
           </button>
         </div>
       </div>
-
-      <p className="mt-4 rounded-lg bg-black/[0.035] px-3 py-2 text-[11px] leading-relaxed text-muted">
-        {loadStatus === 'unpublished'
-          ? `R${round} qualifying isn’t published yet (session: ${raceDate(qualiUtc)} ${raceTime(qualiUtc)}). Set the grid yourself meanwhile.`
-          : 'Drag drivers to set the grid, tap PIT for a pit-lane start. Keyboard: focus a driver, Space to pick up, arrows to move.'}
-      </p>
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
         <SortableContext items={grid.order} strategy={rectSortingStrategy}>
