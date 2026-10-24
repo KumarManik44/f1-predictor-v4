@@ -2,6 +2,8 @@
 
 **Race-winner and podium probabilities from the starting grid, built to be honest about what can be predicted.**
 
+**▶ Live app: [kumarmanik44.github.io/f1-predictor-v4](https://kumarmanik44.github.io/f1-predictor-v4/)**
+
 Pick any remaining race of the 2026 season, set the starting grid (or load the official qualifying result), and get
 every driver's chance of winning and of finishing on the podium. Behind the app is a model built with a leak-proof
 pipeline, an untouched holdout, and a written rule for every decision.
