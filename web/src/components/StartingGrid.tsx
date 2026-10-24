@@ -39,8 +39,8 @@ function Slot({ id, index, driver, pit, onTogglePit }: {
   return (
     <li className={index % 2 === 1 ? 'pt-9' : ''}>
       <div className="mb-2 flex items-baseline justify-between px-0.5 font-mono text-[11px]">
-        <span className={pit ? 'text-faint line-through' : 'text-muted'}>P{index + 1}</span>
-        {pit && <span className="font-semibold text-warn">PIT LANE</span>}
+        <span className={pit ? 'text-white/40 line-through' : 'text-white/75'}>P{index + 1}</span>
+        {pit && <span className="font-semibold text-amber-300">PIT LANE</span>}
       </div>
       <div
         ref={setNodeRef}
@@ -53,8 +53,8 @@ function Slot({ id, index, driver, pit, onTogglePit }: {
           aria-label={`P${index + 1}: ${driver.given_name} ${driver.family_name}, ${team}${pit ? ', pit-lane start' : ''}. Press space to pick up, arrow keys to move.`}
           className={`relative flex cursor-grab touch-none select-none items-center gap-2 overflow-hidden rounded-xl border py-2.5 pl-3.5 pr-1.5 transition-[border-color,box-shadow,opacity] ${
             isDragging
-              ? 'cursor-grabbing border-line-strong bg-panel shadow-[0_18px_40px_-14px_rgba(18,19,22,0.45)]'
-              : 'border-line bg-panel hover:border-line-strong hover:shadow-sm'
+              ? 'slot-glass cursor-grabbing shadow-[0_22px_44px_-12px_rgba(0,0,0,0.75)]'
+              : 'slot-glass hover:border-white'
           } ${pit ? 'border-dashed opacity-55' : ''}`}
         >
           <span className="absolute inset-y-0 left-0 w-1" style={{ background: color }} />
@@ -148,11 +148,13 @@ export default function StartingGrid(props: Props) {
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
         <SortableContext items={grid.order} strategy={rectSortingStrategy}>
-          <ol className="mt-6 grid grid-cols-2 gap-x-3 gap-y-3 sm:gap-x-5">
-            {grid.order.map((id, index) => (
-              <Slot key={id} id={id} index={index} driver={drivers.get(id)!} pit={pit.has(id)} onTogglePit={onTogglePit} />
-            ))}
-          </ol>
+          <div className="track -mx-2 mt-6 sm:mx-0">
+            <ol className="grid grid-cols-2 gap-x-2 gap-y-3 sm:gap-x-5">
+              {grid.order.map((id, index) => (
+                <Slot key={id} id={id} index={index} driver={drivers.get(id)!} pit={pit.has(id)} onTogglePit={onTogglePit} />
+              ))}
+            </ol>
+          </div>
         </SortableContext>
       </DndContext>
     </div>

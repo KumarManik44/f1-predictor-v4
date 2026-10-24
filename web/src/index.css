@@ -29,10 +29,14 @@ body {
   font-family: var(--font-sans);
   color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
+  /* Colour washes behind the glass cards, fixed so the blur has something to refract */
   background:
-    radial-gradient(1200px 600px at 15% -10%, rgb(227 38 27 / 0.07), transparent 60%),
-    radial-gradient(900px 500px at 100% 0%, rgb(47 95 179 / 0.06), transparent 60%),
+    radial-gradient(900px 700px at 8% 5%, rgb(227 38 27 / 0.16), transparent 60%),
+    radial-gradient(800px 700px at 96% 20%, rgb(47 95 179 / 0.16), transparent 60%),
+    radial-gradient(900px 800px at 45% 105%, rgb(255 166 48 / 0.13), transparent 60%),
+    radial-gradient(700px 600px at 85% 85%, rgb(15 138 95 / 0.09), transparent 60%),
     var(--color-base);
+  background-attachment: fixed;
 }
 
 /* Faint track-map grid behind everything */
@@ -45,14 +49,102 @@ body {
     linear-gradient(rgb(18 19 22 / 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgb(18 19 22 / 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse at top, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at top, black 40%, transparent 90%);
 }
 
+/* Liquid glass card: frosted fill, bright top edge, light rim */
 .panel {
-  background: var(--color-panel);
-  border: 1px solid var(--color-line);
-  border-radius: 1.25rem;
-  box-shadow: 0 1px 2px rgb(18 19 22 / 0.04), 0 12px 32px -18px rgb(18 19 22 / 0.18);
+  position: relative;
+  isolation: isolate;
+  background: linear-gradient(135deg, rgb(255 255 255 / 0.62), rgb(255 255 255 / 0.36));
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgb(255 255 255 / 0.55);
+  border-radius: 1.5rem;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    inset 0 -1px 0 rgb(255 255 255 / 0.2),
+    0 1px 2px rgb(18 19 22 / 0.04),
+    0 22px 50px -24px rgb(18 19 22 / 0.3);
+}
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(140deg, rgb(255 255 255 / 0.95), rgb(255 255 255 / 0.1) 35%,
+    rgb(18 19 22 / 0.06) 60%, rgb(255 255 255 / 0.7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+
+/* Smaller glass pieces: race chips, countdown digits */
+.glass-chip {
+  background: rgb(255 255 255 / 0.5);
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.85), 0 8px 24px -16px rgb(18 19 22 / 0.3);
+}
+
+/* Fallbacks: no backdrop blur, or the viewer asked for less transparency */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .panel { background: rgb(255 255 255 / 0.92); }
+  .glass-chip { background: rgb(255 255 255 / 0.9); }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .panel, .glass-chip { background: var(--color-panel); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* Asphalt grid behind the starting grid: grain, kerbs, white edge lines, chequered start line */
+.track {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  padding: 2.75rem 1.25rem 1.5rem;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    linear-gradient(90deg, transparent 38%, rgb(0 0 0 / 0.16) 50%, transparent 62%),
+    radial-gradient(120% 70% at 50% 0%, rgb(255 255 255 / 0.1), transparent 60%),
+    linear-gradient(180deg, #414247, #2b2c30);
+  box-shadow: inset 0 2px 14px rgb(0 0 0 / 0.45), inset 0 0 0 1px rgb(0 0 0 / 0.35);
+}
+.track::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(180deg, var(--color-accent) 0 18px, #f2f2f2 18px 36px) left top / 7px 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--color-accent) 0 18px, #f2f2f2 18px 36px) right top / 7px 100% no-repeat,
+    linear-gradient(rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.85)) 14px 0 / 2px 100% no-repeat,
+    linear-gradient(rgb(255 255 255 / 0.85), rgb(255 255 255 / 0.85)) calc(100% - 14px) 0 / 2px 100% no-repeat;
+}
+.track::after {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  left: 16px;
+  right: 16px;
+  height: 12px;
+  pointer-events: none;
+  opacity: 0.9;
+  background: conic-gradient(#f2f2f2 25%, #17181b 0 50%, #f2f2f2 0 75%, #17181b 0) 0 0 / 12px 12px;
+}
+
+@media (min-width: 640px) {
+  .track { padding-inline: 1.75rem; }
+}
+
+/* Grid slot card sitting on the asphalt */
+.slot-glass {
+  background: rgb(255 255 255 / 0.88);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  backdrop-filter: blur(10px) saturate(160%);
+  border-color: rgb(255 255 255 / 0.6);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.95), 0 10px 22px -12px rgb(0 0 0 / 0.6);
 }
 
 /* Red / white kerb stripe */
@@ -60,7 +152,7 @@ body {
   background: repeating-linear-gradient(90deg, var(--color-accent) 0 14px, #ffffff 14px 28px);
 }
 
-/* Painted grid-box marking above each slot */
+/* Painted white grid-box marking above each slot */
 .grid-box {
   position: relative;
 }
@@ -71,9 +163,9 @@ body {
   right: 35%;
   top: -6px;
   height: 6px;
-  border-top: 2px solid rgb(18 19 22 / 0.2);
-  border-left: 2px solid rgb(18 19 22 / 0.2);
-  border-right: 2px solid rgb(18 19 22 / 0.2);
+  border-top: 2px solid rgb(255 255 255 / 0.8);
+  border-left: 2px solid rgb(255 255 255 / 0.8);
+  border-right: 2px solid rgb(255 255 255 / 0.8);
 }
 
 .no-scrollbar::-webkit-scrollbar { display: none; }

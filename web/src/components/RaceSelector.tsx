@@ -22,8 +22,8 @@ export default function RaceSelector({ races, selected, onSelect }: Props) {
                 aria-pressed={active}
                 className={`relative w-44 overflow-hidden rounded-2xl border p-4 text-left transition duration-300 ${
                   active
-                    ? 'border-accent/50 bg-panel shadow-[0_14px_36px_-18px_rgba(227,38,27,0.55)]'
-                    : 'border-line bg-panel/70 hover:border-line-strong hover:bg-panel'
+                    ? 'glass-chip border-accent/50 shadow-[0_14px_36px_-18px_rgba(227,38,27,0.55)]'
+                    : 'glass-chip border-white/60 hover:border-line-strong'
                 }`}
               >
                 <div className="flex items-center justify-between">

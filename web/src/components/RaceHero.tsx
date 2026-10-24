@@ -5,7 +5,7 @@ import { countdown } from '../lib/format'
 function Unit({ value, label }: { value: number; label: string }) {
   return (
     <div className="flex flex-col items-center">
-      <span className="min-w-[3.25rem] rounded-xl border border-line bg-panel px-2 py-2 shadow-sm text-center font-mono text-2xl font-semibold tabular-nums sm:text-3xl">
+      <span className="min-w-[3.25rem] glass-chip rounded-xl border border-white/60 px-2 py-2 text-center font-mono text-2xl font-semibold tabular-nums sm:text-3xl">
         {String(value).padStart(2, '0')}
       </span>
       <span className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-faint">{label}</span>
