@@ -88,18 +88,7 @@ function Predictor({ model, season }: { model: ModelFile; season: SeasonFile }) 
           <RaceSelector races={remaining} selected={round} onSelect={setRound} />
           <RaceHero race={race} season={season.season} now={now} />
 
-          <p className="mt-8 flex items-start gap-2.5 rounded-xl border border-line bg-panel px-4 py-3 text-xs leading-relaxed text-muted">
-            <span aria-hidden="true" className="mt-px text-accent">●</span>
-            <span>
-              <span className="text-ink">Grid-only model.</span> Probabilities come from the starting grid alone, so the same grid gives
-              the same odds at every circuit. It did not clearly beat a simple grid-slot lookup on 10 unseen races.{' '}
-              <a href="#model" className="text-ink underline decoration-line-strong underline-offset-2 hover:decoration-accent">
-                See the evidence
-              </a>
-            </span>
-          </p>
-
-          <div className="mt-6 grid gap-6 lg:grid-cols-12">
+          <div className="mt-8 grid gap-6 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <StartingGrid
                 grid={grid}
