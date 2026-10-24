@@ -14,3 +14,4 @@ web/dist/
 
 # V3 notebook lives in the V3 repo
 f1_predictor_v3_master.ipynb
+*.tsbuildinfo
